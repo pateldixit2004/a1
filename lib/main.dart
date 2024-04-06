@@ -73,7 +73,9 @@
 //     );
 //   }
 // }
+import 'package:aaaanewlearing/con.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -99,7 +101,7 @@ class ImageUploadScreen extends StatefulWidget {
 
 class _ImageUploadScreenState extends State<ImageUploadScreen> {
   File _imageFile=File("");
-
+  DataController controller=Get.put(DataController());
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
 
@@ -167,15 +169,23 @@ class _ImageUploadScreenState extends State<ImageUploadScreen> {
       appBar: AppBar(
         title: Text('Image Upload Demo'),
       ),
-      body: Center(
-        child: _imageFile == null
-            ? Text('No image selected')
-            : Image.file(_imageFile),
+      body: Column(
+        children: [
+          // Center(
+          //   child: _imageFile == null
+          //       ? Text('No image selected')
+          //       : Image.file(_imageFile),
+          // ),
+        ],
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           FloatingActionButton(
+            onPressed: () => controller.sendCustomerDetailsApi(),
+            tooltip: 'Take Photo',
+            child: Icon(Icons.camera),
+          ), FloatingActionButton(
             onPressed: () => _pickImage(ImageSource.camera),
             tooltip: 'Take Photo',
             child: Icon(Icons.camera),
